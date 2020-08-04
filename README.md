@@ -5,7 +5,7 @@
   <a href="#rocket-sobre-o-projeto">Sobre o projeto</a> | <a href="#computer-tecnologias">Tecnologias</a> | <a href="#books-guia-de-instalação-e-execução">Guia de instalação e execução</a> | <a href="#scroll-licença">Licença</a>
 </p>
 
-## Layout
+## Preview
 <img src=".github/preview.gif">
 
 ## :rocket: Sobre o projeto
