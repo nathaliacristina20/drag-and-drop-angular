@@ -10,7 +10,7 @@
 
 ## :rocket: Sobre o projeto
 
-<p>Este é um projeto exemplo de ToDo com Kanban afim de praticar manipulação da DOM com Angular.</p>
+<p>Este é um projeto de ToDo com Kanban afim de praticar manipulação da DOM com Angular, releitura da <a href="https://www.youtube.com/watch?v=6wn8hpUcEcM">Masterclass</a> da Rocketseat realizado onde foi desenvolvido com JS.</p>
 
 ## :computer: Tecnologias
 
