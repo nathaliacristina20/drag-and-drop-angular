@@ -7,7 +7,7 @@ import {
   QueryList,
   Renderer2,
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +20,13 @@ export class AppComponent implements OnInit, AfterViewInit {
     ElementRef
   >;
 
+  subscription: Subscription = new Subscription();
+
   constructor(private renderer: Renderer2) {}
   ngAfterViewInit(): void {
-
     this.cards.forEach((card) => {
-      fromEvent(card.nativeElement, 'dragstart').subscribe(
+
+      const dragstart = fromEvent(card.nativeElement, 'dragstart').subscribe(
         (cardEvent: MouseEvent) => {
           this.renderer.addClass(cardEvent.target, 'is-dragging');
           this.dropzones.forEach((dropzone) => {
@@ -33,19 +35,20 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       );
 
-      // solta o card
-      fromEvent(card.nativeElement, 'dragend').subscribe((card: MouseEvent) => {
+      const dragend = fromEvent(card.nativeElement, 'dragend').subscribe((card: MouseEvent) => {
         this.renderer.removeClass(card.target, 'is-dragging');
         this.dropzones.forEach((el) => {
           this.renderer.removeClass(el.nativeElement, 'highlight');
         });
       });
+
+      this.subscription.add(dragstart);
+      this.subscription.add(dragend);
     });
 
     this.dropzones.forEach((dropzone) => {
-      this.renderer.removeClass(dropzone.nativeElement, 'over');
 
-      fromEvent(dropzone.nativeElement, 'dragover').subscribe(
+      const dragover = fromEvent(dropzone.nativeElement, 'dragover').subscribe(
         (_: MouseEvent) => {
           this.renderer.addClass(dropzone.nativeElement, 'over');
 
@@ -57,12 +60,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       );
 
-      fromEvent(dropzone.nativeElement, 'dragleave').subscribe(
+      const dragleave = fromEvent(dropzone.nativeElement, 'dragleave').subscribe(
         (_: MouseEvent) => {
           this.renderer.removeClass(dropzone.nativeElement, 'over');
         }
       );
 
+      this.subscription.add(dragover);
+      this.subscription.add(dragleave);
     });
   }
 
